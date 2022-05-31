@@ -74,4 +74,3 @@ class Application:
 
 
 application = Application(routes, fronts)
-
