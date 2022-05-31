@@ -19,3 +19,4 @@ class Application:
         else:
             start_response('404 NOT FOUND', [('Content-Type', 'text/html')])
             return [b"Not Found"]
+
