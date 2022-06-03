@@ -5,12 +5,10 @@ import datetime
 
 
 def about_view(request):
-    # Просто возвращаем текст
     return '200 OK', render_('about.html')
 
 
 def contact_view(request):
-    # Проверка метода запроса
     if request['method'] == 'POST':
         now = datetime.datetime.now()
         data = request['data']
