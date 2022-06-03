@@ -43,6 +43,10 @@ def white_view(request):
     return '200 OK', render_('color.html', color_name='white')
 
 
+# def not_found_404_view(request):
+#     print(request)
+#     return '404 WHAT', [b'404 UNKNOWN COLOR!!!!!!1']
+
 def random_view(request):
     print(request)
     answer = requests.get('http://www.colr.org/json/color/random')

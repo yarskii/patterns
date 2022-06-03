@@ -1,7 +1,6 @@
 class Application:
 
     def __init__(self, urlpatterns: dict, front_controllers: list):
-
         self.urlpatterns = urlpatterns
         self.front_controllers = front_controllers
 
@@ -9,7 +8,6 @@ class Application:
         result = {}
         if data:
             params = data.split('&')
-
             for item in params:
                 k, v = item.split('=')
                 result[k] = v
