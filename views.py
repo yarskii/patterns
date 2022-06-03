@@ -5,10 +5,12 @@ import datetime
 
 
 def about_view(request):
+    # Просто возвращаем текст
     return '200 OK', render_('about.html')
 
 
 def contact_view(request):
+    # Проверка метода запроса
     if request['method'] == 'POST':
         now = datetime.datetime.now()
         data = request['data']
@@ -42,6 +44,10 @@ def white_view(request):
     print(request)
     return '200 OK', render_('color.html', color_name='white')
 
+
+# def not_found_404_view(request):
+#     print(request)
+#     return '404 WHAT', [b'404 UNKNOWN COLOR!!!!!!1']
 
 def random_view(request):
     print(request)
