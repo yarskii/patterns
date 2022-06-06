@@ -5,6 +5,12 @@ class Application:
         self.urlpatterns = urlpatterns
         self.front_controllers = front_controllers
 
+    def add_route(self, url):
+        def inner(view):
+            self.urlpatterns[url] = view
+
+        return inner
+
     def parse_input_data(self, data: str):
         result = {}
         if data:
@@ -53,5 +59,6 @@ class Application:
             start_response(code, [('Content-Type', 'text/html')])
             return [text.encode('utf-8')]
         else:
+
             start_response('404 NOT FOUND', [('Content-Type', 'text/html')])
             return [b'404 UNKNOWN COLOR!!!!!!1']

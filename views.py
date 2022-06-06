@@ -53,3 +53,4 @@ def random_view(request):
 class Other:
     def __call__(self, request):
         return '200 OK', render_('color.html', color_name='Что-то другое')
+
