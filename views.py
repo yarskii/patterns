@@ -1,13 +1,16 @@
-from framework.templates import render_
-import json
-import requests
 import datetime
+
+from framework.templates import render_
+from logging_mod import Logger, debug
+
+logger = Logger('main')
 
 
 def about_view(request):
     return '200 OK', render_('about.html')
 
 
+@debug
 def contact_view(request):
     if request['method'] == 'POST':
         now = datetime.datetime.now()
@@ -24,37 +27,10 @@ def contact_view(request):
 
 
 def index_view(request):
-    print(request)
     return '200 OK', render_('index.html')
 
 
-def black_view(request):
-    print(request)
-    return '200 OK', render_('color.html', color_name='black')
-
-
-def red_view(request):
-    print(request)
-    return '200 OK', render_('color.html', color_name='red')
-
-
-def white_view(request):
-    print(request)
-    return '200 OK', render_('color.html', color_name='white')
-
-
-# def not_found_404_view(request):
-#     print(request)
-#     return '404 WHAT', [b'404 UNKNOWN COLOR!!!!!!1']
-
-def random_view(request):
-    print(request)
-    answer = requests.get('http://www.colr.org/json/color/random')
-    color_name = answer.json()['colors'][0]['tags'][0]['name']
-    return '200 OK', render_('color.html', color_name=color_name)
-
-
+@debug
 class Other:
     def __call__(self, request):
-        return '200 OK', render_('color.html', color_name='Что-то другое')
-
+        return '404 WHAT', render_('page_404.html')

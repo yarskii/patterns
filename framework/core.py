@@ -44,10 +44,10 @@ class Application:
 
         query_string = env['QUERY_STRING']
         request_params = self.parse_input_data(query_string)
-
+        request = {}
         if path in self.urlpatterns:
             view = self.urlpatterns[path]
-            request = {}
+
             request['method'] = method
             request['data'] = data
             request['request_params'] = request_params
@@ -57,6 +57,30 @@ class Application:
             start_response(code, [('Content-Type', 'text/html')])
             return [text.encode('utf-8')]
         else:
+            view = self.urlpatterns['/not_found/']
+            code, text = view(request)
+            start_response(code, [('Content-Type', 'text/html')])
+            return [text.encode('utf-8')]
 
-            start_response('404 NOT FOUND', [('Content-Type', 'text/html')])
-            return [b'404 UNKNOWN COLOR!!!!!!1']
+
+class DebugApplication(Application):
+
+    def __init__(self, urlpatterns, front_controllers):
+        self.application = Application(urlpatterns, front_controllers)
+        super().__init__(urlpatterns, front_controllers)
+
+    def __call__(self, env, start_response):
+        print('DEBUG MODE')
+        print(env)
+        return self.application(env, start_response)
+
+
+class MockApplication(Application):
+
+    def __init__(self, urlpatterns, front_controllers):
+        self.application = Application(urlpatterns, front_controllers)
+        super().__init__(urlpatterns, front_controllers)
+
+    def __call__(self, env, start_response):
+        start_response('200 OK', [('Content-Type', 'text/html')])
+        return [b'Hello from Mock']
